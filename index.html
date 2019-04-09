@@ -9,17 +9,20 @@
     <body>
     	<section>
     		<div class="resultsPanel">
-    			<div id="gameResult" class="info">Wynik : 0</div>
-    			<div id="playerResult" class="info">Gracz : 0</div>
-    			<div id="compResult" class="info">Komputer : 0</div>
+    			<div class="info">Gracz : </div>
+    			<div id="playerResult" class="info"></div>
+    			<div class="info">Komputer : </div>
+    			<div id="compResult" class="info"></div>
+    			<button id="newGame">Nowa Gra</button>
+    		</div>
+			<div class="board">
+    			<div id="gameResult" class="info"></div>
+    			<div id="output" class="info"></div>
     		</div>
     		<div class="playerPanel">
     			<button id="paper">Papier</button>
     			<button id="rock">Kamień</button>
     			<button id="scissors">Nożyce</button>
-    		</div>
-    		<div class="board">
-    			<div id="output" class="info"></div>
     		</div>
     	</section>
     	<script type="text/javascript" src="js/script.js"></script>

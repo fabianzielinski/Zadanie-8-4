@@ -19,10 +19,12 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 body { background-color: #FFF; }
 
-.playerPanel { background-color: #a0a97f; margin: 5% 25%; padding: 50px; min-width: 100px; }
+.resultsPanel { background-color: #a0a97f; margin: 2% 25%; padding: 50px; min-width: 100px; }
+
+.playerPanel { background-color: #a0a97f; margin: 2% 25%; padding: 50px; min-width: 100px; }
 
 button { background-color: #838b75; padding: 20px; margin: 30px 40px; font-size: 110%; color: #FFF; font-weight: bold; }
 
-.board { display: -ms-flexbox; display: flex; background-color: #a0a97f; max-width: 100%; margin: 20px 25%; min-height: 100px; -ms-flex-pack: center; justify-content: center; -ms-flex-align: center; align-items: center; }
+.board { display: -ms-flexbox; display: flex; background-color: #a0a97f; max-width: 100%; margin: 2% 25%; min-height: 100px; -ms-flex-pack: center; justify-content: center; -ms-flex-align: center; align-items: center; color: #FFF; font-size: 40px; }
 
-.output { font-size: 20px; text-align: center; }
+.info { text-align: center; }

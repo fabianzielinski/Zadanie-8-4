@@ -3,19 +3,19 @@
 var compChoice;
 var playerChoice;
 
-var playerResult;
-var compResult;
+var playerResult = 0;
+var compResult = 0;
+var gameResult = 0;
+var rounds = 0; 
 
 var btnPaper = document.getElementById('paper');
 var btnRock = document.getElementById('rock');
 var btnScissors = document.getElementById('scissors');
-// var text = document.getElementById('output');
+var output = document.getElementById('output');
 
 var compMove =  function() {
 
 	var cmv = Math.floor(Math.random()*3+1);
-
-	// document.getElementById('output').innerHTML = cmv;
 
 	if (cmv == 1) {
 		compChoice = 'paper';
@@ -36,11 +36,11 @@ var playerMove = function(pmv) {
 
 	compChoice = compMove();
 
-	console.log(pmv);
+	// console.log(pmv);
 
-	document.getElementById('output').innerHTML = playerChoice +'  '+ compChoice ;
+	// document.getElementById('output').innerHTML = playerChoice +'  '+ compChoice ;
 
-	// game();
+	game();
 
 }
 
@@ -50,9 +50,9 @@ function game() {
         document.getElementById('gameResult').innerHTML = "<span style=\"color:green\">" + 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
         document.getElementById('playerResult').innerHTML = rounds;
         return;
-    } else if(pcResult == (rounds-1)){
+    } else if(compResult == (rounds-1)){
         document.getElementById('gameResult').innerHTML = "<span style=\"color:red\">" + 'YOU LOST THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
-        document.getElementById('pcResult').innerHTML = rounds;
+        document.getElementById('compResult').innerHTML = rounds;
         return;
     } else {
     
@@ -60,10 +60,10 @@ function game() {
             output.innerHTML = 'YOU TIED!';
         } else if ((playerChoice == 'paper' && compChoice == 'rock') || (playerChoice == 'rock' && compChoice == 'scissors') || (playerChoice == 'scissors' && compChoice == 'paper')){
             output.innerHTML = 'YOU LOST with: ' + playerChoice;
-            document.getElementById('pcResult').innerHTML = 1 + pcResult++;
+            document.getElementById('compResult').innerHTML = 'Komputer : ' + compResult++;
         } else {
             output.innerHTML = 'YOU WON with: ' + playerChoice;
-            document.getElementById('playerResult').innerHTML = 1 + playerResult++;
+            document.getElementById('playerResult').innerHTML = 'Player : ' + playerResult++;
         }
     }
 }

@@ -28,7 +28,7 @@ var compMove =  function() {
 	if (cmv == 1) {
 		compChoice = 'paper';
 	} 
-	else if (cmv == 2 ) { 
+	else if (cmv == 2) { 
 		compChoice = 'rock';
 	} 
 	else {
@@ -36,7 +36,6 @@ var compMove =  function() {
 	}
 	return compChoice;
 }
-
 
 var playerMove = function(pmv) {
 
@@ -47,52 +46,52 @@ var playerMove = function(pmv) {
 
 function game() {
 
-    if(playerResult == (rounds-1)){
+    if (playerResult == (rounds-1)) {
         document.getElementById('gameResult').innerHTML = "<span style=\"color:green\">" + 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
         document.getElementById('playerResult').innerHTML = rounds;
         return;
-    } else if(compResult == (rounds-1)){
+    } else if (compResult == (rounds-1)) {
         document.getElementById('gameResult').innerHTML = "<span style=\"color:red\">" + 'YOU LOST THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
         document.getElementById('compResult').innerHTML =  rounds;
         return;
     } else {
     
-        if(compChoice == playerChoice) {
+        if (compChoice == playerChoice) {
             output.innerHTML = 'YOU TIED!';
-        } 
+        }; 
         else if ((playerChoice == 'paper' && compChoice == 'rock') || (playerChoice == 'rock' && compChoice == 'scissors') || (playerChoice == 'scissors' && compChoice == 'paper')) {
             output.innerHTML = 'YOU LOST with: ' + playerChoice;
             document.getElementById('compResult').innerHTML = compResult++;
-        } 
+        }; 
         else {
             output.innerHTML = 'YOU WON with: ' + playerChoice;
             document.getElementById('playerResult').innerHTML = playerResult++;
-        }
+        };
     };
 };
 
 //Event
 
-btnPaper.addEventListener('click', function(){
+btnPaper.addEventListener('click', function() {
 	playerMove('paper');
 });
 
-btnRock.addEventListener('click', function(){
+btnRock.addEventListener('click', function() {
 	playerMove('rock');
 });
 
-btnScissors.addEventListener('click', function(){
+btnScissors.addEventListener('click', function() {
 	playerMove ('scissors');
 });
 
-newGame.addEventListener('click', function(){
+newGame.addEventListener('click', function() {
     rounds = window.prompt('How many rounds = win?');
     playerResult = document.getElementById('playerResult').innerHTML = 0;
     compResult = document.getElementById('compResult').innerHTML = 0;
     document.getElementById('gameResult').innerHTML = '';
     document.getElementById('output').innerHTML = '';
    
-    if(isNaN(rounds)){
+    if (isNaN(rounds)) {
         output.innerHTML = 'Please pick a number!';
-    }
+    };
 });

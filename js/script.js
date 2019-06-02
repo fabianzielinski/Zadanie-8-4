@@ -2,15 +2,17 @@
 
 // Var
 
-var compChoice;
-var playerChoice;
-
-var playerResult;
-var compResult ;
-var gameResult;
-var rounds; 
+const params = {
+                compChoice : "", 
+                playerChoice : "", 
+                playerResult : 0, 
+                gameResult : 0, 
+                rounds : 0
+};
 
 var output = document.getElementById('output');
+var playerMoveTable= document.querySelectorAll('.player-move');
+var pmTableLength = playerMoveTable.length;
 
 // Buttons
 
@@ -26,72 +28,88 @@ var compMove =  function() {
 	var cmv = Math.floor(Math.random()*3+1);
 
 	if (cmv == 1) {
-		compChoice = 'paper';
+		params.compChoice = 'paper';
 	} 
 	else if (cmv == 2) { 
-		compChoice = 'rock';
+		params.compChoice = 'rock';
 	} 
 	else {
-		compChoice = 'scissors';
+		params.compChoice = 'scissors';
 	}
-	return compChoice;
+	return params.compChoice;
 }
 
-var playerMove = function(pmv) {
+var playerMove = function(atrrVar) {
 
-	playerChoice = pmv;
-	compChoice = compMove();
+	params.playerChoice = atrrVar;
+    alert("1" + params.playerChoice);
+	params.compChoice = compMove();
+    alert("2" + params.compChoice);
 	game();
 }
 
-function game() {
+var game = function() {
 
-    if (playerResult == (rounds-1)) {
+    if (params.playerResult == (params.rounds-1)) {
         document.getElementById('gameResult').innerHTML = "<span style=\"color:green\">" + 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
-        document.getElementById('playerResult').innerHTML = rounds;
+        document.getElementById('playerResult').innerHTML = params.rounds;
         return;
-    } else if (compResult == (rounds-1)) {
+    } else if (params.compResult == (params.rounds-1)) {
         document.getElementById('gameResult').innerHTML = "<span style=\"color:red\">" + 'YOU LOST THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
-        document.getElementById('compResult').innerHTML =  rounds;
+        document.getElementById('compResult').innerHTML =  params.rounds;
         return;
     } else {
     
-        if (compChoice == playerChoice) {
+        if (params.compChoice == params.playerChoice) {
             output.innerHTML = 'YOU TIED!';
-        }; 
-        else if ((playerChoice == 'paper' && compChoice == 'rock') || (playerChoice == 'rock' && compChoice == 'scissors') || (playerChoice == 'scissors' && compChoice == 'paper')) {
-            output.innerHTML = 'YOU LOST with: ' + playerChoice;
-            document.getElementById('compResult').innerHTML = compResult++;
-        }; 
+        } 
+        else if ((params.playerChoice == 'paper' && params.compChoice == 'rock') || (params.playerChoice == 'rock' && params.compChoice == 'scissors') || (params.playerChoice == 'scissors' && params.compChoice == 'paper')) {
+            output.innerHTML = 'YOU WON with: ' + params.playerChoice;
+            document.getElementById('playerResult').innerHTML = params.playerResult++;
+        } 
         else {
-            output.innerHTML = 'YOU WON with: ' + playerChoice;
-            document.getElementById('playerResult').innerHTML = playerResult++;
-        };
-    };
-};
+            output.innerHTML = 'YOU LOST with: ' + params.playerChoice;
+            document.getElementById('compResult').innerHTML = params.compResult++;
+        }
+    }
+} 
 
 //Event
 
-btnPaper.addEventListener('click', function() {
-	playerMove('paper');
-});
+var playerMoveTable = document.getElementsByClassName('player-move');
+alert("5 " + playerMoveTable);
+for(var i=0; i < pmTableLength; i++) {
+    let atrrVar = playerMoveTable[i].getAttribute('data-move');
+    playerMoveTable[i].addEventListener('click', function() { 
+        alert("6 " + playerMoveTable[i]);
+        alert("3 " + atrrVar);
+        playerMove(atrrVar);
+    });
+}
 
-btnRock.addEventListener('click', function() {
-	playerMove('rock');
-});
+// btnPaper.addEventListener('click', function() {
+// 	playerMove('paper');
+// });
 
-btnScissors.addEventListener('click', function() {
-	playerMove ('scissors');
-});
+// btnRock.addEventListener('click', function() {
+// 	playerMove('rock');
+// });
+
+// btnScissors.addEventListener('click', function() {
+// 	playerMove ('scissors');
+// });
 
 newGame.addEventListener('click', function() {
-    rounds = window.prompt('How many rounds = win?');
-    playerResult = document.getElementById('playerResult').innerHTML = 0;
-    compResult = document.getElementById('compResult').innerHTML = 0;
+    params.rounds = window.prompt('How many rounds = win?');
+    params.playerResult = document.getElementById('playerResult').innerHTML = 0;
+    params.compResult = document.getElementById('compResult').innerHTML = 0;
     document.getElementById('gameResult').innerHTML = '';
     document.getElementById('output').innerHTML = '';
+
+  
    
-    if (isNaN(rounds)) {
+    if (isNaN(params.rounds)) {
         output.innerHTML = 'Please pick a number!';
     };
 });
+

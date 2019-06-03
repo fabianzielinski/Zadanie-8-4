@@ -2,15 +2,16 @@
 
 // Var
 
-const params = {
+var params = {
                 compChoice : "", 
                 playerChoice : "", 
-                playerResult : 0, 
-                gameResult : 0, 
-                rounds : 0
+                playerResult : '', 
+                gameResult : '', 
+                rounds : ''
 };
 
 var output = document.getElementById('output');
+var viewCompResalt = document.querySelector('#compResult');
 var playerMoveTable= document.querySelectorAll('.player-move');
 var pmTableLength = playerMoveTable.length;
 
@@ -50,11 +51,14 @@ var playerMove = function(atrrVar) {
 
 var game = function() {
 
-    if (params.playerResult == (params.rounds-1)) {
-        document.getElementById('gameResult').innerHTML = "<span style=\"color:green\">" + 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
-        document.getElementById('playerResult').innerHTML = params.rounds;
+    if (params.playerResult == (params.rounds - 1)) {
+        document.querySelector('#modal-overlay').classList.add('show');
+        document.querySelector('#modal-one').classList.add('show');
+        // document.querySelector('.content').innerHTML = "<span style=\"color:green\">" + 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
+        document.querySelector('.content-one').innerHTML = 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button';
+        document.querySelector('.content-two').innerHTML = params.playerResult + ' : ' + params.compResult;
         return;
-    } else if (params.compResult == (params.rounds-1)) {
+    } else if (params.compResult == (params.rounds - 1)) {
         document.getElementById('gameResult').innerHTML = "<span style=\"color:red\">" + 'YOU LOST THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
         document.getElementById('compResult').innerHTML =  params.rounds;
         return;
@@ -64,12 +68,19 @@ var game = function() {
             output.innerHTML = 'YOU TIED!';
         } 
         else if ((params.playerChoice == 'paper' && params.compChoice == 'rock') || (params.playerChoice == 'rock' && params.compChoice == 'scissors') || (params.playerChoice == 'scissors' && params.compChoice == 'paper')) {
+            params[playerResult] += params[playerResult];
+            var {playerResult , compResult} = params;
             output.innerHTML = 'YOU WON with: ' + params.playerChoice;
-            document.getElementById('playerResult').innerHTML = params.playerResult++;
+            document.querySelector('#playerResult').innerHTML = playerResult;
+            alert('ps1 ' + playerResult);
+            alert('cs1 ' + compResult);
         } 
         else {
+            params.compResult += params.compResult;
             output.innerHTML = 'YOU LOST with: ' + params.playerChoice;
-            document.getElementById('compResult').innerHTML = params.compResult++;
+            viewCompResalt.innerHTML = params.compResult;
+            alert('ps2 ' + params.playerResult);
+            alert('cs2 ' + params.compResult);
         }
     }
 } 
@@ -77,12 +88,12 @@ var game = function() {
 //Event
 
 var playerMoveTable = document.getElementsByClassName('player-move');
-alert("5 " + playerMoveTable);
+// alert("5 " + playerMoveTable);
 for(var i=0; i < pmTableLength; i++) {
     let atrrVar = playerMoveTable[i].getAttribute('data-move');
     playerMoveTable[i].addEventListener('click', function() { 
-        alert("6 " + playerMoveTable[i]);
-        alert("3 " + atrrVar);
+        // alert("6 " + playerMoveTable[i]);
+        // alert("3 " + atrrVar);
         playerMove(atrrVar);
     });
 }
@@ -105,11 +116,29 @@ newGame.addEventListener('click', function() {
     params.compResult = document.getElementById('compResult').innerHTML = 0;
     document.getElementById('gameResult').innerHTML = '';
     document.getElementById('output').innerHTML = '';
-
-  
    
     if (isNaN(params.rounds)) {
         output.innerHTML = 'Please pick a number!';
     };
 });
 
+var hideModal = function(event){
+    event.preventDefault();
+    document.querySelector('#modal-overlay').classList.remove('show');
+};
+
+var closeButtons = document.querySelectorAll('.modal .close');
+
+for(var i = 0; i < closeButtons.length; i++){
+    closeButtons[i].addEventListener('click', hideModal);
+}
+
+document.querySelector('#modal-overlay').addEventListener('click', hideModal);
+
+var modals = document.querySelectorAll('.modal');
+
+for(var i = 0; i < modals.length; i++){
+    modals[i].addEventListener('click', function(event){
+        event.stopPropagation();
+    });
+}

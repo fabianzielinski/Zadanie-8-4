@@ -84,6 +84,8 @@ button {
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	text-align: center;
+	color: red;
 	transform: translate3d(-50%, -50%, 0);
 
 	&.show {

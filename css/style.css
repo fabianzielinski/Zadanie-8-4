@@ -35,7 +35,7 @@ button { background-color: #838b75; padding: 20px; margin: 30px 40px; font-size:
 
 .overlay.show { display: block; }
 
-.modal { display: none; background: #fff; width: 200px; position: absolute; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); }
+.modal { display: none; background: #fff; width: 200px; position: absolute; top: 50%; left: 50%; text-align: center; color: red; transform: translate3d(-50%, -50%, 0); }
 
 .modal.show { display: block; }
 

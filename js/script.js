@@ -5,9 +5,10 @@
 var params = {
                 compChoice : "", 
                 playerChoice : "", 
-                playerResult : '', 
-                gameResult : '', 
-                rounds : ''
+                playerResult : 0,
+                compResult : 0, 
+                gameResult : 0, 
+                rounds : 0
 };
 
 var output = document.getElementById('output');
@@ -51,14 +52,14 @@ var playerMove = function(atrrVar) {
 
 var game = function() {
 
-    if (params.playerResult == (params.rounds - 1)) {
+    if (params.playerResult == (params.rounds)) {
         document.querySelector('#modal-overlay').classList.add('show');
         document.querySelector('#modal-one').classList.add('show');
         // document.querySelector('.content').innerHTML = "<span style=\"color:green\">" + 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
         document.querySelector('.content-one').innerHTML = 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button';
         document.querySelector('.content-two').innerHTML = params.playerResult + ' : ' + params.compResult;
         return;
-    } else if (params.compResult == (params.rounds - 1)) {
+    } else if (params.compResult == (params.rounds)) {
         document.getElementById('gameResult').innerHTML = "<span style=\"color:red\">" + 'YOU LOST THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
         document.getElementById('compResult').innerHTML =  params.rounds;
         return;
@@ -68,7 +69,7 @@ var game = function() {
             output.innerHTML = 'YOU TIED!';
         } 
         else if ((params.playerChoice == 'paper' && params.compChoice == 'rock') || (params.playerChoice == 'rock' && params.compChoice == 'scissors') || (params.playerChoice == 'scissors' && params.compChoice == 'paper')) {
-            params[playerResult] += params[playerResult];
+            params.playerResult += 1;
             var {playerResult , compResult} = params;
             output.innerHTML = 'YOU WON with: ' + params.playerChoice;
             document.querySelector('#playerResult').innerHTML = playerResult;
@@ -76,7 +77,7 @@ var game = function() {
             alert('cs1 ' + compResult);
         } 
         else {
-            params.compResult += params.compResult;
+            params.compResult += 1;
             output.innerHTML = 'YOU LOST with: ' + params.playerChoice;
             viewCompResalt.innerHTML = params.compResult;
             alert('ps2 ' + params.playerResult);

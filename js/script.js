@@ -3,12 +3,14 @@
 // Var
 
 var params = {
-                compChoice : "", 
-                playerChoice : "", 
-                playerResult : 0,
-                compResult : 0, 
-                gameResult : 0, 
-                rounds : 0
+                compChoice: "", 
+                playerChoice: "", 
+                playerResult: 0,
+                compResult: 0, 
+                gameResult: 0, 
+                rounds: 0,
+                lrounds: 0,
+                results: []
 };
 
 var output = document.getElementById('output');
@@ -50,51 +52,77 @@ var playerMove = function(atrrVar) {
 	game();
 }
 
+var drawTable = function() {
+    var tableBody = document.querySelector("#modal-one .table tbody");
+    tableBody.innerHTML = "";
+    var lresults = params.results.length;
+    for (var i = 0; i < lresults; i++ ) {
+        var tr = document.createElement("tr");
+        for (var key in params.results[i]) {
+            var td = document.createElement("td");
+            td.innerHTML = params.results[i][key];
+            tr.appendChild(td);
+        }
+        tableBody.appendChild(tr);
+    }
+}
+
 var game = function() {
 
     if (params.playerResult == (params.rounds)) {
+        drawTable();
         document.querySelector('#modal-overlay').classList.add('show');
         document.querySelector('#modal-one').classList.add('show');
-        // document.querySelector('.content').innerHTML = "<span style=\"color:green\">" + 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
-        document.querySelector('.content-one').innerHTML = 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button';
-        document.querySelector('.content-two').innerHTML = params.playerResult + ' : ' + params.compResult;
+        document.querySelector('.content-one').innerHTML = 'CONGRATULATIONS!' + '<br>' + 'YOU WON THE ENTIRE GAME' + '<br>' + params.playerResult + ' : ' + params.compResult;
+        document.querySelector('.content-two').innerHTML = 'Game over, please press the New Game button';
         return;
     } else if (params.compResult == (params.rounds)) {
-        document.getElementById('gameResult').innerHTML = "<span style=\"color:red\">" + 'YOU LOST THE ENTIRE GAME' + '<br>' + 'Game over, please press the New Game button' + "</span>";
-        document.getElementById('compResult').innerHTML =  params.rounds;
+        drawTable();
+        document.querySelector('#modal-overlay').classList.add('show');
+        document.querySelector('#modal-one').classList.add('show');
+        document.querySelector('.content-one').innerHTML = 'YOU LOST THE ENTIRE GAME' + '<br>' + params.playerResult + ' : ' + (params.compResult);
+        document.querySelector('.content-two').innerHTML = 'Game over, please press the New Game button';
         return;
     } else {
     
         if (params.compChoice == params.playerChoice) {
             output.innerHTML = 'YOU TIED!';
+            params.lrounds += 1;
         } 
         else if ((params.playerChoice == 'paper' && params.compChoice == 'rock') || (params.playerChoice == 'rock' && params.compChoice == 'scissors') || (params.playerChoice == 'scissors' && params.compChoice == 'paper')) {
             params.playerResult += 1;
             var {playerResult , compResult} = params;
             output.innerHTML = 'YOU WON with: ' + params.playerChoice;
             document.querySelector('#playerResult').innerHTML = playerResult;
-            alert('ps1 ' + playerResult);
-            alert('cs1 ' + compResult);
+            params.lrounds += 1;
+            alert('ps1 ' + params.playerResult);
+            alert('cs1 ' + params.compResult);
         } 
         else {
             params.compResult += 1;
+            var {playerResult , compResult} = params;
             output.innerHTML = 'YOU LOST with: ' + params.playerChoice;
-            viewCompResalt.innerHTML = params.compResult;
+            document.querySelector('#compResult').innerHTML = compResult;
+            params.lrounds += 1;
             alert('ps2 ' + params.playerResult);
             alert('cs2 ' + params.compResult);
         }
+        var obj = {
+            rN: params.lrounds,
+            mP: params.playerChoice,
+            mC: params.compChoice,
+            rS: output.innerHTML,
+            scr: params.playerResult + ' : ' + params.compResult 
+        };
+        params.results.push(obj);
     }
 } 
 
 //Event
 
-var playerMoveTable = document.getElementsByClassName('player-move');
-// alert("5 " + playerMoveTable);
-for(var i=0; i < pmTableLength; i++) {
+for (var i=0; i < pmTableLength; i++) {
     let atrrVar = playerMoveTable[i].getAttribute('data-move');
     playerMoveTable[i].addEventListener('click', function() { 
-        // alert("6 " + playerMoveTable[i]);
-        // alert("3 " + atrrVar);
         playerMove(atrrVar);
     });
 }
@@ -130,7 +158,7 @@ var hideModal = function(event){
 
 var closeButtons = document.querySelectorAll('.modal .close');
 
-for(var i = 0; i < closeButtons.length; i++){
+for (var i = 0; i < closeButtons.length; i++){
     closeButtons[i].addEventListener('click', hideModal);
 }
 
@@ -138,7 +166,7 @@ document.querySelector('#modal-overlay').addEventListener('click', hideModal);
 
 var modals = document.querySelectorAll('.modal');
 
-for(var i = 0; i < modals.length; i++){
+for (var i = 0; i < modals.length; i++){
     modals[i].addEventListener('click', function(event){
         event.stopPropagation();
     });

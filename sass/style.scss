@@ -80,13 +80,18 @@ button {
 .modal {
 	display: none;
 	background: #fff;
-	width: 200px;
+	width: auto;
+	height: auto;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	text-align: center;
 	color: red;
 	transform: translate3d(-50%, -50%, 0);
+	table, th, td {
+		border: 1px solid black;
+		padding: 5px;
+	}
 
 	&.show {
 		display: block;

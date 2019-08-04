@@ -120,24 +120,12 @@ var game = function() {
 
 //Event
 
-for (var i=0; i < pmTableLength; i++) {
+for (var i = 0; i < pmTableLength; i++) {
     let atrrVar = playerMoveTable[i].getAttribute('data-move');
     playerMoveTable[i].addEventListener('click', function() { 
         playerMove(atrrVar);
     });
 }
-
-// btnPaper.addEventListener('click', function() {
-// 	playerMove('paper');
-// });
-
-// btnRock.addEventListener('click', function() {
-// 	playerMove('rock');
-// });
-
-// btnScissors.addEventListener('click', function() {
-// 	playerMove ('scissors');
-// });
 
 newGame.addEventListener('click', function() {
     params.rounds = window.prompt('How many rounds = win?');
